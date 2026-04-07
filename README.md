@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🗓 Interactive Calendar Component
 
-## Getting Started
+## 🚀 Overview
 
-First, run the development server:
+An interactive and visually polished calendar component built using **Next.js** and **Tailwind CSS**, inspired by a physical wall calendar design.
+
+This project focuses on delivering a clean UI, intuitive interactions, and responsive behavior across devices. It combines functionality with aesthetic design to simulate a real-world calendar experience.
+
+---
+
+## ✨ Features
+
+### 📅 Calendar Functionality
+
+* Dynamic rendering of months
+* Correct alignment of days based on real calendar logic
+* Smooth navigation between months (previous / next)
+
+### 🔵 Date Range Selection
+
+* Select a start date and an end date
+* Automatically highlights the selected range
+* Handles reverse selection (end before start) intelligently
+
+### 📝 Notes Section
+
+* Users can add and edit notes
+* Notes persist using **localStorage**
+* No backend required
+
+### 🌙 Modern Dark UI
+
+* Developer-themed dark interface
+* Clean and minimal design
+* Inspired by a physical wall calendar layout
+
+### 📱 Fully Responsive Design
+
+* Desktop: side-by-side layout (image + calendar)
+* Mobile: stacked layout for better usability
+* Fully touch-friendly interactions
+
+---
+
+## 🛠 Tech Stack
+
+* **Next.js**
+* **React**
+* **Tailwind CSS**
+
+---
+
+## ▶️ Getting Started
+
+### Run Locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open:
+http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🌍 Live Demo
 
-## Learn More
+(Will be added after deployment)
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🎥 Demo Video
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+(Attach Loom / YouTube link here)
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 💡 Design Decisions
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+* Used a **dark theme** to match a developer-focused aesthetic
+* Implemented **localStorage** for persistence without backend complexity
+* Focused on **user experience** for smooth date selection
+* Kept the component structure clean and readable for scalability
+
+---
+
+## 📌 Future Improvements
+
+* Add event-based notes per specific date
+* Add animations (calendar transitions / flipping effect)
+* Highlight holidays and important dates
+* Add theme toggle (light / dark mode)
+
+---
+
+## 👩‍💻 Author
+
+**Aadya Agrawal**
