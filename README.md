@@ -66,7 +66,7 @@ http://localhost:3000
 
 ## 🌍 Live Demo
 
-(Will be added after deployment)
+https://interactive-calendar-8azh.vercel.app
 
 ---
 
