@@ -72,7 +72,7 @@ https://interactive-calendar-8azh.vercel.app
 
 ## 🎥 Demo Video
 
-(Attach Loom / YouTube link here)
+https://www.loom.com/share/76f24b28c0ce427c96d2780a01e932d0
 
 ---
 
