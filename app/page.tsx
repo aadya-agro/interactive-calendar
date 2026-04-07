@@ -2,8 +2,8 @@
 import { useState, useEffect } from "react";
 
 export default function Home() {
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  const [startDate, setStartDate] = useState<number | null>(null);
+  const [endDate, setEndDate] = useState<number | null>(null);
   const [note, setNote] = useState("");
   const [currentMonth, setCurrentMonth] = useState(new Date());
 
