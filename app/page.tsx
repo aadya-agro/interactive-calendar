@@ -1,65 +1,167 @@
-import Image from "next/image";
+"use client";
+import { useState, useEffect } from "react";
 
 export default function Home() {
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [note, setNote] = useState("");
+  const [currentMonth, setCurrentMonth] = useState(new Date());
+
+  // Load note
+  useEffect(() => {
+    const saved = localStorage.getItem("note");
+    if (saved) setNote(saved);
+  }, []);
+
+  // Save note
+  useEffect(() => {
+    localStorage.setItem("note", note);
+  }, [note]);
+
+  const today = new Date();
+
+  const daysInMonth = new Date(
+    currentMonth.getFullYear(),
+    currentMonth.getMonth() + 1,
+    0
+  ).getDate();
+
+  const firstDay = new Date(
+    currentMonth.getFullYear(),
+    currentMonth.getMonth(),
+    1
+  ).getDay();
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <div className="min-h-screen p-6 bg-gradient-to-br from-gray-900 to-black grid md:grid-cols-2 gap-6">
+
+      {/* Image Section */}
+      <div className="relative h-64 md:h-full">
+        <img
+          src="/cat.jpeg"
+          className="w-full h-full object-cover rounded-2xl"
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+        <div className="absolute bottom-4 left-4 text-white text-2xl font-bold">
+          Coding Days 🐱💻
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </div>
+
+      {/* Calendar + Notes */}
+      <div className="flex flex-col gap-6">
+
+        {/* Calendar */}
+        <div className="bg-gray-800 p-6 rounded-2xl shadow-lg">
+
+          {/* Month Switcher */}
+          <div className="flex justify-between items-center mb-4">
+            <button
+              onClick={() =>
+                setCurrentMonth(
+                  new Date(
+                    currentMonth.getFullYear(),
+                    currentMonth.getMonth() - 1
+                  )
+                )
+              }
+              className="px-3 py-1 bg-gray-700 text-white rounded hover:bg-gray-600 hover:scale-105 transition"
+            >
+              ←
+            </button>
+
+            <h2 className="text-xl font-bold text-white">
+              {currentMonth.toLocaleString("default", {
+                month: "long",
+                year: "numeric",
+              })}
+            </h2>
+
+            <button
+              onClick={() =>
+                setCurrentMonth(
+                  new Date(
+                    currentMonth.getFullYear(),
+                    currentMonth.getMonth() + 1
+                  )
+                )
+              }
+              className="px-3 py-1 bg-gray-700 text-white rounded hover:bg-gray-600 hover:scale-105 transition"
+            >
+              →
+            </button>
+          </div>
+
+          {/* Weekdays */}
+          <div className="grid grid-cols-7 gap-2 text-center font-semibold text-gray-300 mb-2">
+            {["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].map(day => (
+              <div key={day}>{day}</div>
+            ))}
+          </div>
+
+          {/* Dates */}
+          <div className="grid grid-cols-7 gap-2">
+            {Array.from({ length: firstDay + daysInMonth }, (_, i) => {
+              if (i < firstDay) {
+                return <div key={i}></div>;
+              }
+
+              const day = i - firstDay + 1;
+
+              const isStart = day === startDate;
+              const isEnd = day === endDate;
+              const isBetween =
+                startDate && endDate && day > startDate && day < endDate;
+
+              const isToday =
+                day === today.getDate() &&
+                currentMonth.getMonth() === today.getMonth() &&
+                currentMonth.getFullYear() === today.getFullYear();
+
+              return (
+                <div
+                  key={i}
+                  onClick={() => {
+                    if (!startDate || (startDate && endDate)) {
+                      setStartDate(day);
+                      setEndDate(null);
+                    } else {
+                      if (day < startDate) {
+                        setEndDate(startDate);
+                        setStartDate(day);
+                      } else {
+                        setEndDate(day);
+                      }
+                    }
+                  }}
+                  className={`p-2 border border-gray-600 rounded-lg cursor-pointer text-center font-medium text-white
+                    ${isStart || isEnd ? "bg-blue-600 text-white" : ""}
+                    ${isBetween ? "bg-blue-900" : ""}
+                    ${isToday ? "border-2 border-white" : ""}
+                    hover:scale-105 hover:bg-gray-700 transition duration-200
+                  `}
+                >
+                  {day}
+                </div>
+              );
+            })}
+          </div>
+
         </div>
-      </main>
+
+        {/* Notes */}
+        <div className="bg-gray-800 p-6 rounded-2xl shadow-lg">
+          <h2 className="text-lg font-bold text-white mb-2">Notes</h2>
+
+          <textarea
+            className="w-full border border-gray-600 bg-gray-900 text-white p-2 rounded"
+            rows={4}
+            placeholder="Write notes..."
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+          />
+        </div>
+
+      </div>
+
     </div>
   );
 }
